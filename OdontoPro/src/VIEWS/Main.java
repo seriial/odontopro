@@ -10,6 +10,8 @@ package VIEWS;
  */
 public class Main extends javax.swing.JFrame {
 
+    Pacientes pacientes;
+    
     /**
      * Creates new form MAin
      */
@@ -26,7 +28,16 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        btp_Dentista = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btp_Pacientes = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        panelConsultasDia = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         m_sobre = new javax.swing.JMenuItem();
@@ -34,21 +45,105 @@ public class Main extends javax.swing.JFrame {
         m_config = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         m_sair = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        m_novDentista = new javax.swing.JMenuItem();
-        m_gerDentista = new javax.swing.JMenuItem();
-        editMenu1 = new javax.swing.JMenu();
-        m_novPaciente = new javax.swing.JMenuItem();
-        m_gerPaciente = new javax.swing.JMenuItem();
-        editMenu2 = new javax.swing.JMenu();
-        m_novConsulta = new javax.swing.JMenuItem();
-        m_gerConsulta = new javax.swing.JMenuItem();
-        editMenu4 = new javax.swing.JMenu();
-        m_novUsuario = new javax.swing.JMenuItem();
-        m_gerUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Odontologia");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
+
+        btp_Dentista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Physician 48.png"))); // NOI18N
+        btp_Dentista.setText("Dentista");
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/configure48.png"))); // NOI18N
+        jButton2.setText("Administração");
+
+        btp_Pacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/family48.png"))); // NOI18N
+        btp_Pacientes.setText("Pacientes");
+        btp_Pacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btp_PacientesActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/add-event48.png"))); // NOI18N
+        jButton4.setText("Consultas");
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/budget48.png"))); // NOI18N
+        jButton5.setText("Pagamentos");
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Medical insurance.png"))); // NOI18N
+        jButton6.setText("Relatórios médicos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btp_Dentista)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btp_Pacientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addGap(53, 53, 53)
+                .addComponent(jButton2)
+                .addGap(178, 178, 178))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btp_Dentista)
+                    .addComponent(jButton2)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btp_Pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btp_Dentista, btp_Pacientes, jButton2, jButton4, jButton5, jButton6});
+
+        panelConsultasDia.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)), "Consultados do dia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout panelConsultasDiaLayout = new javax.swing.GroupLayout(panelConsultasDia);
+        panelConsultasDia.setLayout(panelConsultasDiaLayout);
+        panelConsultasDiaLayout.setHorizontalGroup(
+            panelConsultasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(panelConsultasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultasDiaLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        panelConsultasDiaLayout.setVerticalGroup(
+            panelConsultasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 389, Short.MAX_VALUE)
+            .addGroup(panelConsultasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelConsultasDiaLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Arquivo");
@@ -77,97 +172,33 @@ public class Main extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setMnemonic('e');
-        editMenu.setText("Dentistas");
-
-        m_novDentista.setMnemonic('t');
-        m_novDentista.setText("Novo dentista");
-        m_novDentista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_novDentistaActionPerformed(evt);
-            }
-        });
-        editMenu.add(m_novDentista);
-
-        m_gerDentista.setMnemonic('y');
-        m_gerDentista.setText("Gerenciar dentistas");
-        m_gerDentista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_gerDentistaActionPerformed(evt);
-            }
-        });
-        editMenu.add(m_gerDentista);
-
-        menuBar.add(editMenu);
-
-        editMenu1.setMnemonic('e');
-        editMenu1.setText("Pacientes");
-
-        m_novPaciente.setMnemonic('t');
-        m_novPaciente.setText("Novo paciente");
-        m_novPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_novPacienteActionPerformed(evt);
-            }
-        });
-        editMenu1.add(m_novPaciente);
-
-        m_gerPaciente.setMnemonic('y');
-        m_gerPaciente.setText("Gerenciar pacientes");
-        m_gerPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_gerPacienteActionPerformed(evt);
-            }
-        });
-        editMenu1.add(m_gerPaciente);
-
-        menuBar.add(editMenu1);
-
-        editMenu2.setMnemonic('e');
-        editMenu2.setText("Consultas");
-
-        m_novConsulta.setMnemonic('t');
-        m_novConsulta.setText("Nova consulta");
-        m_novConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_novConsultaActionPerformed(evt);
-            }
-        });
-        editMenu2.add(m_novConsulta);
-
-        m_gerConsulta.setMnemonic('y');
-        m_gerConsulta.setText("Consultas");
-        editMenu2.add(m_gerConsulta);
-
-        menuBar.add(editMenu2);
-
-        editMenu4.setMnemonic('e');
-        editMenu4.setText("Administração");
-
-        m_novUsuario.setMnemonic('y');
-        m_novUsuario.setText("Novo usuario");
-        editMenu4.add(m_novUsuario);
-
-        m_gerUsuario.setMnemonic('t');
-        m_gerUsuario.setText("Gerenciar usuarios");
-        editMenu4.add(m_gerUsuario);
-
-        menuBar.add(editMenu4);
-
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1408, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelConsultasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelConsultasDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1424, 795));
+        setSize(new java.awt.Dimension(1027, 610));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -175,37 +206,20 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_m_sairActionPerformed
 
-    private void m_novConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_novConsultaActionPerformed
-        Nova_consulta t1 = new Nova_consulta();
-        t1.setVisible(true);
-        desktopPane.add(t1);
-        
-    }//GEN-LAST:event_m_novConsultaActionPerformed
+    private void btp_PacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btp_PacientesActionPerformed
+        mostrar_pacientes();
+    }//GEN-LAST:event_btp_PacientesActionPerformed
 
-    private void m_novPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_novPacienteActionPerformed
-        Novo_paciente t2 = new Novo_paciente();
-        t2.setVisible(true);
-        desktopPane.add(t2);
-    }//GEN-LAST:event_m_novPacienteActionPerformed
-
-    private void m_novDentistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_novDentistaActionPerformed
-        Novo_dentista t3 = new Novo_dentista();
-        t3.setVisible(true);
-        desktopPane.add(t3);
-    }//GEN-LAST:event_m_novDentistaActionPerformed
-
-    private void m_gerDentistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_gerDentistaActionPerformed
-        Gerenciar_dentistas t4 = new Gerenciar_dentistas();
-        t4.setVisible(true);
-        desktopPane.add(t4);
-    }//GEN-LAST:event_m_gerDentistaActionPerformed
-
-    private void m_gerPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_gerPacienteActionPerformed
-        Gerenciar_pacientes t5 = new Gerenciar_pacientes();
-        t5.setVisible(true);
-        desktopPane.add(t5);
-    }//GEN-LAST:event_m_gerPacienteActionPerformed
-
+    //Metodos para exibição:
+    public void mostrar_pacientes(){
+        if(pacientes == null){
+            pacientes = new Pacientes();
+            pacientes.setVisible(true);
+        }else{
+            pacientes.setVisible(true);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -217,7 +231,7 @@ public class Main extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -241,25 +255,22 @@ public class Main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenu editMenu1;
-    private javax.swing.JMenu editMenu2;
-    private javax.swing.JMenu editMenu4;
+    private javax.swing.JButton btp_Dentista;
+    private javax.swing.JButton btp_Pacientes;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JMenuItem m_backup;
     private javax.swing.JMenuItem m_config;
-    private javax.swing.JMenuItem m_gerConsulta;
-    private javax.swing.JMenuItem m_gerDentista;
-    private javax.swing.JMenuItem m_gerPaciente;
-    private javax.swing.JMenuItem m_gerUsuario;
-    private javax.swing.JMenuItem m_novConsulta;
-    private javax.swing.JMenuItem m_novDentista;
-    private javax.swing.JMenuItem m_novPaciente;
-    private javax.swing.JMenuItem m_novUsuario;
     private javax.swing.JMenuItem m_sair;
     private javax.swing.JMenuItem m_sobre;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel panelConsultasDia;
     // End of variables declaration//GEN-END:variables
 }
