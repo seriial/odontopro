@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
 public class EntradasDAO {
     
         public Connection getConnection() {
-            try {
-                return DriverManager.getConnection("jdbc:mysql://localhost/db_odonto", "root", "root");
+            try {             
+                return DriverManager.getConnection("jdbc:mysql://localhost/db_odonto", "root", "root");                
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao conectador ao Banco\nErro: " + e, "E R R O", 0);
-                throw new RuntimeException(e);
+                throw new RuntimeException(e);               
             }
         }
         
@@ -34,6 +34,22 @@ public class EntradasDAO {
             Connection con = new EntradasDAO().getConnection();
             ResultSet rs = null;
             String sql = "SELECT * FROM dentista ORDER BY nome";
+            try {
+                PreparedStatement stmt = con.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                stmt.execute();
+            }catch (SQLException u) {
+                throw new RuntimeException(u);
+            } finally {
+                con.close();
+            }
+            return rs;
+        }
+        
+         public ResultSet carregar_CamposDentista(String id) throws SQLException{
+            Connection con = new EntradasDAO().getConnection();
+            ResultSet rs = null;
+            String sql = "SELECT * FROM dentista where id = '" + id+"'";
             try {
                 PreparedStatement stmt = con.prepareStatement(sql);
                 rs = stmt.executeQuery();

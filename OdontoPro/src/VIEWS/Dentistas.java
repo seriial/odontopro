@@ -7,9 +7,14 @@
 package VIEWS;
 
 import CONTROLLER.DentistasController;
+import DAO.EntradasDAO;
 import MODEL.Dentista;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,13 +22,13 @@ import javax.swing.JOptionPane;
  */
 public class Dentistas extends javax.swing.JFrame {
     Dentista dentista;
-    DentistasController control;
+    DentistasController control = new DentistasController();
     /**
      * Creates new form Dentistas
      */
     public Dentistas() {
         initComponents();
-        //carregarTabela();
+        carregarTabela();
     }
 
     /**
@@ -40,10 +45,10 @@ public class Dentistas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDentistas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        bt_cancelar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        bt_novo = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
@@ -120,12 +125,22 @@ public class Dentistas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Título 3"
             }
         ));
+        tbDentistas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDentistasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDentistas);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 255, 255)));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancel16.png"))); // NOI18N
-        jButton1.setText("Cancelar");
+        bt_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancel16.png"))); // NOI18N
+        bt_cancelar.setText("Cancelar");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/delete16.png"))); // NOI18N
         jButton2.setText("Excluir");
@@ -133,8 +148,13 @@ public class Dentistas extends javax.swing.JFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/edit-female-user16.png"))); // NOI18N
         jButton3.setText("Alterar");
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/add-female-user16.png"))); // NOI18N
-        jButton4.setText("Novo");
+        bt_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/add-female-user16.png"))); // NOI18N
+        bt_novo.setText("Novo");
+        bt_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_novoActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Carrega Tabela");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +171,13 @@ public class Dentistas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(bt_novo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(bt_cancelar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -165,10 +185,10 @@ public class Dentistas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(bt_cancelar)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(bt_novo)
                     .addComponent(jButton5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -494,6 +514,18 @@ public class Dentistas extends javax.swing.JFrame {
         carregarTabela();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void tbDentistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDentistasMouseClicked
+        valores_campos_click();
+    }//GEN-LAST:event_tbDentistasMouseClicked
+
+    private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
+   
+    }//GEN-LAST:event_bt_novoActionPerformed
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_bt_cancelarActionPerformed
+
     private void carregarTabela(){
         try{
             control.carrega_tabela(tbDentistas);
@@ -502,8 +534,16 @@ public class Dentistas extends javax.swing.JFrame {
         }       
 
     }
+    private void valores_campos_click(){
+      dentista = new Dentista(this.nd_nome, this.nd_cpf, this.nd_rg, this.nd_sexo, this.nd_nascimento, this.nd_cro, this.nd_email, this.nd_telefone, this.nd_celular, this.nd_skype, this.nd_facebook, this.nd_rua, this.nd_numero, this.nd_complemento, this.nd_bairro, this.nd_municipio);
+        try{
+            control.valores_campos_click(dentista, tbDentistas);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Erro ao atribuir valores a dentista!");
+        }
+    }
     
-    /**
+     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -514,7 +554,7 @@ public class Dentistas extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -539,10 +579,10 @@ public class Dentistas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bt_cancelar;
+    private javax.swing.JButton bt_novo;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
