@@ -79,6 +79,42 @@ public class Dentista {
         this.campo_bairro = campo_bairro;
         this.campo_municipio = campo_municipio;
     }
+
+    public Dentista(String nome, String cpf, String rg, String sexo, String dataNascimento, String cro, String email, String telefone, String celular, String skype, String facebook, String rua, String numero, String complemento, String bairro, String municipio, JTextField campo_nome, JFormattedTextField campo_cpf, JFormattedTextField campo_rg, JComboBox campo_sexo, JFormattedTextField campo_dataNascimento, JTextField campo_cro, JTextField campo_email, JFormattedTextField campo_telefone, JFormattedTextField campo_celular, JTextField campo_skype, JTextField campo_facebook, JTextField campo_rua, JFormattedTextField campo_numero, JTextField campo_complemento, JTextField campo_bairro, JTextField campo_municipio) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
+        this.cro = cro;
+        this.email = email;
+        this.telefone = telefone;
+        this.celular = celular;
+        this.skype = skype;
+        this.facebook = facebook;
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.municipio = municipio;
+        
+        this.campo_nome = campo_nome;
+        this.campo_cpf = campo_cpf;
+        this.campo_rg = campo_rg;
+        this.campo_sexo = campo_sexo;
+        this.campo_dataNascimento = campo_dataNascimento;
+        this.campo_cro = campo_cro;
+        this.campo_email = campo_email;
+        this.campo_telefone = campo_telefone;
+        this.campo_celular = campo_celular;
+        this.campo_skype = campo_skype;
+        this.campo_facebook = campo_facebook;
+        this.campo_rua = campo_rua;
+        this.campo_numero = campo_numero;
+        this.campo_complemento = campo_complemento;
+        this.campo_bairro = campo_bairro;
+        this.campo_municipio = campo_municipio;
+    }
     
     public String getNome() {
         return nome;

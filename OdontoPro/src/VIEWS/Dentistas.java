@@ -7,20 +7,19 @@
 package VIEWS;
 
 import CONTROLLER.DentistasController;
-import DAO.EntradasDAO;
 import MODEL.Dentista;
 import java.sql.SQLException;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 
 /**
  *
  * @author Gustavo
  */
 public class Dentistas extends javax.swing.JFrame {
+    public boolean isSelected = false;
+    public String idSelected;
+    public String action;
+    
     Dentista dentista;
     DentistasController control = new DentistasController();
     /**
@@ -31,6 +30,22 @@ public class Dentistas extends javax.swing.JFrame {
         carregarTabela();
     }
 
+    public void select(){
+        dentista = new Dentista(this.nd_nome, this.nd_cpf, this.nd_rg, this.nd_sexo, this.nd_nascimento, this.nd_cro, this.nd_email, this.nd_telefone, this.nd_celular, this.nd_skype, this.nd_facebook, this.nd_rua, this.nd_numero, this.nd_complemento, this.nd_bairro, this.nd_municipio);
+        control.desabilitaCampos(dentista);
+        bt_novo.setEnabled(true);
+        btExcluir.setEnabled(true);
+        btSalvar.setEnabled(false);
+        btAlterar.setEnabled(true);
+        if(tbDentistas.getSelectedRow() != -1){
+            this.isSelected = true;
+            this.idSelected = (String) tbDentistas.getValueAt(tbDentistas.getSelectedRow(), 0);
+        }else{
+            
+           this.isSelected = false;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,10 +61,11 @@ public class Dentistas extends javax.swing.JFrame {
         tbDentistas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         bt_cancelar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
         bt_novo = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -125,6 +141,7 @@ public class Dentistas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Título 3"
             }
         ));
+        tbDentistas.getTableHeader().setReorderingAllowed(false);
         tbDentistas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbDentistasMouseClicked(evt);
@@ -142,11 +159,21 @@ public class Dentistas extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/delete16.png"))); // NOI18N
-        jButton2.setText("Excluir");
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/delete16.png"))); // NOI18N
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/edit-female-user16.png"))); // NOI18N
-        jButton3.setText("Alterar");
+        btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/edit-female-user16.png"))); // NOI18N
+        btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
 
         bt_novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/add-female-user16.png"))); // NOI18N
         bt_novo.setText("Novo");
@@ -163,6 +190,15 @@ public class Dentistas extends javax.swing.JFrame {
             }
         });
 
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/success24.png"))); // NOI18N
+        btSalvar.setText("Salvar");
+        btSalvar.setEnabled(false);
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,28 +206,36 @@ public class Dentistas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(68, 68, 68)
                 .addComponent(bt_novo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btAlterar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_cancelar)
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btAlterar, btSalvar, bt_novo});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_cancelar)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(btExcluir)
+                    .addComponent(btAlterar)
                     .addComponent(bt_novo)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btAlterar, btSalvar, bt_novo});
 
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -199,25 +243,33 @@ public class Dentistas extends javax.swing.JFrame {
 
         jLabel8.setText("E-mail:");
 
+        nd_email.setEnabled(false);
+
         jLabel9.setText("Telefone:");
 
         jLabel10.setText("Celular:");
 
         jLabel11.setText("Skype:");
 
+        nd_skype.setEnabled(false);
+
         try {
             nd_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_telefone.setEnabled(false);
 
         try {
             nd_celular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_celular.setEnabled(false);
 
         jLabel12.setText("Facebook:");
+
+        nd_facebook.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -295,19 +347,28 @@ public class Dentistas extends javax.swing.JFrame {
 
         jLabel13.setText("Rua:");
 
+        nd_rua.setEnabled(false);
+
         jLabel14.setText("Nº:");
+
+        nd_complemento.setEnabled(false);
 
         jLabel15.setText("Complemento:");
 
         jLabel16.setText("Bairro:");
 
+        nd_bairro.setEnabled(false);
+
         jLabel17.setText("Municipio:");
+
+        nd_municipio.setEnabled(false);
 
         try {
             nd_numero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_numero.setEnabled(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -384,6 +445,8 @@ public class Dentistas extends javax.swing.JFrame {
 
         jLabel3.setText("Nome:");
 
+        nd_nome.setEnabled(false);
+
         jLabel4.setText("CPF:");
 
         jLabel5.setText("RG:");
@@ -391,6 +454,7 @@ public class Dentistas extends javax.swing.JFrame {
         jLabel6.setText("Sexo:");
 
         nd_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femninio" }));
+        nd_sexo.setEnabled(false);
 
         jLabel7.setText("Data de Nascimento:");
 
@@ -399,20 +463,25 @@ public class Dentistas extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_nascimento.setEnabled(false);
 
         try {
             nd_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_cpf.setEnabled(false);
 
         try {
             nd_rg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        nd_rg.setEnabled(false);
 
         jLabel18.setText("CRO:");
+
+        nd_cro.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -482,7 +551,7 @@ public class Dentistas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -515,17 +584,78 @@ public class Dentistas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tbDentistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDentistasMouseClicked
+        select();
         valores_campos_click();
     }//GEN-LAST:event_tbDentistasMouseClicked
 
     private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
-   
+        novoDentista();
     }//GEN-LAST:event_bt_novoActionPerformed
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         dispose();
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        alterarDentista();
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+       excluirDentista();
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        acaoSalvar();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    public void acaoSalvar(){
+        dentista = new Dentista(this.nd_nome.getText(), this.nd_cpf.getText(), this.nd_rg.getText(), this.nd_sexo.getSelectedItem().toString(), this.nd_nascimento.getText(), this.nd_cro.getText(), this.nd_email.getText(), this.nd_telefone.getText(), this.nd_celular.getText(), this.nd_skype.getText(), this.nd_facebook.getText(), this.nd_rua.getText(), this.nd_numero.getText(), this.nd_complemento.getText(), this.nd_bairro.getText(), this.nd_municipio.getText(), this.nd_nome, this.nd_cpf, this.nd_rg, this.nd_sexo, this.nd_nascimento, this.nd_cro, this.nd_email, this.nd_telefone, this.nd_celular, this.nd_skype, this.nd_facebook, this.nd_rua, this.nd_numero, this.nd_complemento, this.nd_bairro, this.nd_municipio);
+        if(this.nd_nome.getText().trim().equals("") && this.nd_nome.getText().trim().equals("")&& this.action.equals("incluir")){
+            JOptionPane.showMessageDialog(null,"Atenção existem campos em branco!");
+            this.nd_nome.requestFocus();
+        }else{
+            control.salvar(this.idSelected, this.action, dentista);
+            bt_novo.setEnabled(true);
+            btExcluir.setEnabled(true);
+            btSalvar.setEnabled(false);
+            btAlterar.setEnabled(true);
+            carregarTabela();
+        }
+    }
+    
+    public void novoDentista(){
+        select();
+        control.limpaCampos(dentista);
+        control.habilitaCampos(dentista);
+        bt_novo.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btAlterar.setEnabled(false);
+        this.action = "incluir";
+    }
+    
+    public void alterarDentista(){
+        if(this.isSelected == true){
+            control.habilitaCampos(dentista);
+            bt_novo.setEnabled(false);
+            btExcluir.setEnabled(false);
+            btSalvar.setEnabled(true);
+            btAlterar.setEnabled(false);
+            this.action = "alterar";
+        }else{
+            JOptionPane.showMessageDialog(null,"ATENÇÃO SELECIONE UM DENTISTA (AÇÃO)");
+        }
+    }
+    
+    public void excluirDentista(){
+        if(this.isSelected == true){
+            control.excluir(this.idSelected,dentista);
+            carregarTabela();
+        }else{
+            JOptionPane.showMessageDialog(null,"ATENÇÃO SELECIONE UM DENTISTA (AÇÃO)");
+        }
+    }    
+    
     private void carregarTabela(){
         try{
             control.carrega_tabela(tbDentistas);
@@ -534,12 +664,17 @@ public class Dentistas extends javax.swing.JFrame {
         }       
 
     }
+    
     private void valores_campos_click(){
-      dentista = new Dentista(this.nd_nome, this.nd_cpf, this.nd_rg, this.nd_sexo, this.nd_nascimento, this.nd_cro, this.nd_email, this.nd_telefone, this.nd_celular, this.nd_skype, this.nd_facebook, this.nd_rua, this.nd_numero, this.nd_complemento, this.nd_bairro, this.nd_municipio);
-        try{
-            control.valores_campos_click(dentista, tbDentistas);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao atribuir valores a dentista!");
+        dentista = new Dentista(this.nd_nome, this.nd_cpf, this.nd_rg, this.nd_sexo, this.nd_nascimento, this.nd_cro, this.nd_email, this.nd_telefone, this.nd_celular, this.nd_skype, this.nd_facebook, this.nd_rua, this.nd_numero, this.nd_complemento, this.nd_bairro, this.nd_municipio);
+        if(isSelected == true){
+             try{
+                control.valores_campos_click(this.idSelected, dentista);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Erro ao atribuir valores a dentista!");
+            }
+        }else{
+            control.limpaCampos(dentista);
         }
     }
     
@@ -579,10 +714,11 @@ public class Dentistas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btSalvar;
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_novo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
